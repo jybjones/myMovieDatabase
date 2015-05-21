@@ -1,4 +1,51 @@
 extends ./_partials/_layout
 
 block content
-  h1 I'm an index!
+  .container
+      .wrapper
+        .input-container
+          h1 Movie Searches
+
+          input#movie(type='text', placeholder='What MeoVIE?')
+
+
+          button.search-button Search
+          button.addMovie Add to My Movies
+          .movie-info
+            table.movie-search
+              tr
+                th Poster
+
+                th Title
+
+                th Year
+
+                th Rating
+
+                th
+                  button.addMovie ADD
+
+              tbody.Search-details
+      //-           // //tr class = movie//
+      //-     // //end movie-info
+      //-   // // end wrapper//
+      //- // end input-container
+      .movie-list
+        table
+          tr
+            th Poster
+
+            th Title
+
+            th Year
+
+            th Rating
+
+            th Watched?
+
+          tbody.Details
+    //-         // //tr class = movie//
+    //- // end movie-list
+    //- // //end container
+
+
