@@ -1,11 +1,14 @@
+var authData = '';
 var API_URL = "http://www.omdbapi.com/?t=";
 var API_URL2 = "&y=&plot=short&r=json";
 var FIREBASE_URL ="https://moviedatabase.firebaseio.com/";
-var movie_database = FIREBASE_URL + "movies.json";
+var GETmovie_database = FIREBASE_URL + "/movies.json";
+var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
 var fb = new Firebase(FIREBASE_URL);
 var $searchButton = $('.search-button');
 var $addMovie = $(".addMovie");
 var searchInfo = [];
+
 /*$(".addMovie").hide();*/
 
 ///////search button & Calling Function///
@@ -59,7 +62,7 @@ td_2.appendChild(text_2);
 
 /////////Begin Firebase////////
 console.log(movie_database)
-$.get(movie_database, function (movieDetails) {
+$.get(GETmovie_database, function (movieDetails) {
   console.log(movieDetails)
   Object.keys(movieDetails).forEach(function (id) {
     addMovieDetail(movieDetails[id], id);
@@ -85,10 +88,9 @@ var $movieDetails = $('.Details');
 ////////Add Movie to DataBase/////
 $addMovie.click(function () {
   var title = $(this).prev().val();
-  console.log(authData)
-    $.post(movie_database, JSON.stringify(searchInfo),
+  $.post(movie_database, JSON.stringify(searchInfo),
            function (res) {
-      addMovieDetail(searchInfo, res.Title);
+    addMovieDetail(searchInfo, res.Title);
   }, 'json');
 });
 // JSONP_CALLBACK
@@ -239,6 +241,7 @@ function saveAuthData (authData) {
     url: `${FIREBASE_URL}/users/${authData.uid}/profile.json`,
     data: JSON.stringify(authData)
   });
+  authData = authData;
 }
 ///////this is like a template, only need to change the divs//
 function doLogin (email, password, cb) {
