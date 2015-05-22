@@ -23,7 +23,6 @@
   "homepage": "https://github.com/jybjones/myMovieDatabase#readme",
   "devDependencies": {
     "babel": "^5.4.5",
-    "bowcat": "0.0.4",
     "http-server": "^0.8.0",
     "jade": "git+https://github.com/jadejs/jade.git",
     "node-sass": "^3.1.2",

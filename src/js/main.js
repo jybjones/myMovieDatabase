@@ -1,6 +1,8 @@
 var API_URL = "http://www.omdbapi.com/?t=";
-var API_URL2 = "&y=&plot=short&r=json"
-var FIREBASE_URL ="https://moviedatabase.firebaseio.com/movies.json"
+var API_URL2 = "&y=&plot=short&r=json";
+var FIREBASE_URL ="https://moviedatabase.firebaseio.com/";
+var movie_database = FIREBASE_URL + "movies.json";
+var fb = new Firebase(FIREBASE_URL);
 var $searchButton = $('.search-button');
 var $addMovie = $(".addMovie");
 var searchInfo = [];
@@ -56,7 +58,9 @@ td_2.appendChild(text_2);
 }
 
 /////////Begin Firebase////////
-$.get(FIREBASE_URL, function (movieDetails) {
+console.log(movie_database)
+$.get(movie_database, function (movieDetails) {
+  console.log(movieDetails)
   Object.keys(movieDetails).forEach(function (id) {
     addMovieDetail(movieDetails[id], id);
   });
@@ -66,7 +70,7 @@ var $movieDetails = $('.Details');
   $movieDetails.on('click', '.btn', function () {
   var $movie = $(this).closest('.movie');
   var id = $movie.attr('data-id');
-  var deleteUrl = FIREBASE_URL.slice(0, -5) + '/' + id + '.json';
+  var deleteUrl = movie_database.slice(0, -5) + '/' + id + '.json';
 
  $.ajax({
     url: deleteUrl,
@@ -81,7 +85,8 @@ var $movieDetails = $('.Details');
 ////////Add Movie to DataBase/////
 $addMovie.click(function () {
   var title = $(this).prev().val();
-    $.post(FIREBASE_URL, JSON.stringify(searchInfo),
+  console.log(authData)
+    $.post(movie_database, JSON.stringify(searchInfo),
            function (res) {
       addMovieDetail(searchInfo, res.Title);
   }, 'json');
@@ -154,3 +159,101 @@ function getJSON(url, cb) {
 
   document.body.appendChild(script);
 }
+
+//////login/logout/////
+//Javascript Login and Registration//
+//login: a@abc.com, password: abc created from firebase//
+
+$('.onTempPassword form').submit(function () {
+  var email = fb.getAuth().password.email;
+  var oldPw = $('.onTempPassword input:nth-child(1)').val();
+  var newPw = $('.onTempPassword input:nth-child(2)').val();
+
+  fb.changePassword({
+    email: email,
+    oldPassword: oldPw,
+    newPassword: newPw
+  }, function(err) {
+    if (err) {
+      alert(err.toString());
+    } else {
+      fb.unauth();
+    }
+  });
+
+  event.preventDefault();
+})
+
+$('.doResetPassword').click(function () {
+  var email = $('.onLoggedOut input[type="email"]').val();
+
+  fb.resetPassword({
+    email: email
+  }, function (err) {
+    if (err) {
+      alert(err.toString());
+    } else {
+      alert('Check your email!');
+    }
+  });
+});
+
+$('.doLogout').click(function () {
+  fb.unauth();
+})
+
+$('.doRegister').click(function () {
+  var email = $('.onLoggedOut input[type="email"]').val();
+  var password = $('.onLoggedOut input[type="password"]').val();
+
+  fb.createUser({
+    email: email,
+    password: password
+  }, function (err, userData) {
+    if (err) {
+      alert(err.toString());
+    } else {
+      doLogin(email, password);
+    }
+  });
+
+  event.preventDefault();
+});
+
+$('.onLoggedOut form').submit(function () {
+  var email = $('.onLoggedOut input[type="email"]').val();
+  var password = $('.onLoggedOut input[type="password"]').val();
+
+  doLogin(email, password);
+  event.preventDefault();
+});
+
+function clearLoginForm () {
+  $('input[type="email"]').val('');
+  $('input[type="password"]').val('');
+}
+
+function saveAuthData (authData) {
+  $.ajax({
+    method: 'PUT',
+    url: `${FIREBASE_URL}/users/${authData.uid}/profile.json`,
+    data: JSON.stringify(authData)
+  });
+}
+///////this is like a template, only need to change the divs//
+function doLogin (email, password, cb) {
+  fb.authWithPassword({
+    email: email,
+    password: password
+  }, function (err, authData) {
+    if (err) {
+      alert(err.toString());
+    } else {
+      saveAuthData(authData);
+      typeof cb === 'function' && cb(authData);
+    }
+  });
+}
+
+
+

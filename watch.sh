@@ -6,6 +6,7 @@ bower install
 # clean and prepare public directory
 rm -rf public
 cp -r src public
+cp -r bower_components public/bower
 
 # compile jade to html
 ./node_modules/.bin/nodemon -e jade --watch src --exec "
@@ -26,10 +27,6 @@ cp -r src public
   -s inline \
   -w &
 
-# concat bower_components to public/lib directory
-if [ -d "bower_components" ]; then
-  ./node_modules/.bin/bowcat -o public/lib
-fi
 
 echo "clean"
 # clean unneeded files

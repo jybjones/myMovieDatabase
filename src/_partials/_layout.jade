@@ -6,7 +6,7 @@ html(lang="en-US")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     block title
       title My Movie Database
-    link(rel="stylesheet", href="lib/build.css")
+    link(rel="stylesheet", href="bower/bootstrap/dist/css/bootstrap.css")
     link(rel="stylesheet", href="css/main.css")
   body
     include _header
@@ -15,8 +15,11 @@ html(lang="en-US")
       block content
 
       include _footer
-  script(src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js')
-  script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')
-  script(src="lib/build.js")
+
+  script(src="bower/jquery/dist/jquery.js")
+  script(src="bower/bootstrap/dist/js/bootstrap.js")
+  script(src="bower/firebase/firebase.js")
+  script(src="bower/lodash/lodash.js")
   script(src="js/main.js")
+  script(src="js/login_authentication.js")
 

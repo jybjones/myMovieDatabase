@@ -10,8 +10,10 @@ block content
 
 
           button.search-button Search
-          button.addMovie Add to My Movies
-          .movie-info
+          .login
+            include _partials/_login
+          .movie-info.hidden
+
             table.movie-search
               tr
                 th Poster
@@ -23,14 +25,14 @@ block content
                 th Rating
 
                 th
-                  button.addMovie ADD
+                  button.addMovie ADD to My Movies
 
               tbody.Search-details
       //-           // //tr class = movie//
       //-     // //end movie-info
       //-   // // end wrapper//
       //- // end input-container
-      .movie-list
+      .movie-list.hidden
         table
           tr
             th Poster

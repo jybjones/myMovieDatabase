@@ -6,6 +6,7 @@ bower install
 # clean and prepare public directory
 rm -rf public
 cp -r src public
+cp -r bower_components public/bower
 
 # compile jade to html
 ./node_modules/.bin/jade src -o public -PH
@@ -20,10 +21,6 @@ rm -rf public/_partials
 # convert ES6 JS to ES5
 ./node_modules/.bin/babel src --out-dir public -s inline
 
-# concat bower_components to public/lib directory
-if [ -d "bower_components" ]; then
-  ./node_modules/.bin/bowcat -o public/lib
-fi
 
 # clean unneeded files
 rm -rf public/_styles \
