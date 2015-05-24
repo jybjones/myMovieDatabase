@@ -3,11 +3,13 @@ var API_URL = "http://www.omdbapi.com/?t=";
 var API_URL2 = "&y=&plot=short&r=json";
 var FIREBASE_URL ="https://moviedatabase.firebaseio.com/";
 var GETmovie_database = FIREBASE_URL + "/movies.json";
-var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
+//var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
 var fb = new Firebase(FIREBASE_URL);
 var $searchButton = $('.search-button');
 var $addMovie = $(".addMovie");
 var searchInfo = [];
+var movie_database;
+
 
 /*$(".addMovie").hide();*/
 
@@ -61,7 +63,6 @@ td_2.appendChild(text_2);
 }
 
 /////////Begin Firebase////////
-console.log(movie_database)
 $.get(GETmovie_database, function (movieDetails) {
   console.log(movieDetails)
   Object.keys(movieDetails).forEach(function (id) {
@@ -88,6 +89,8 @@ var $movieDetails = $('.Details');
 ////////Add Movie to DataBase/////
 $addMovie.click(function () {
   var title = $(this).prev().val();
+  authData = fb.getAuth()
+  movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
   $.post(movie_database, JSON.stringify(searchInfo),
            function (res) {
     addMovieDetail(searchInfo, res.Title);
