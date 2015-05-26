@@ -59,6 +59,10 @@ tr.appendChild(td_2);
 var text_2 = document.createTextNode(searchData.imdbRating);
 td_2.appendChild(text_2);
 
+var td_3 = document.createElement('TD');
+td_3.setAttribute("", "");
+tr.appendChild(td_3);
+
   return docFragment; //search return from button function above//
 }
 
