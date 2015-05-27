@@ -2,13 +2,13 @@ var authData = '';
 var API_URL = "http://www.omdbapi.com/?t=";
 var API_URL2 = "&y=&plot=short&r=json";
 var FIREBASE_URL ="https://moviedatabase.firebaseio.com/";
-var GETmovie_database = FIREBASE_URL + "/movies.json";
+var GETmovie_database = FIREBASE_URL + "movies.json";
 //var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
 var fb = new Firebase(FIREBASE_URL);
 var $searchButton = $('.search-button');
 var $addMovie = $(".addMovie");
-var searchInfo = [];
-var movie_database;
+var searchData;
+
 
 
 /*$(".addMovie").hide();*/
@@ -18,8 +18,8 @@ var movie_database;
   $(".Search-details").empty();
  var title = $(this).prev().val();
   var url = API_URL + title + API_URL2;
-  $.get(url, function (searchData) {
-    searchInfo.push(searchData)
+  $.get(url, function (search) {
+    searchData = search;
     movieSearchReturn(searchData)
   }, 'json');
 });
@@ -59,15 +59,13 @@ tr.appendChild(td_2);
 var text_2 = document.createTextNode(searchData.imdbRating);
 td_2.appendChild(text_2);
 
-var td_3 = document.createElement('TD');
-td_3.setAttribute("", "");
-tr.appendChild(td_3);
 
   return docFragment; //search return from button function above//
 }
 
 /////////Begin Firebase////////
 $.get(GETmovie_database, function (movieDetails) {
+  console.log(GETmovie_database)
   console.log(movieDetails)
   Object.keys(movieDetails).forEach(function (id) {
     addMovieDetail(movieDetails[id], id);
@@ -93,17 +91,17 @@ var $movieDetails = $('.Details');
 ////////Add Movie to DataBase/////
 $addMovie.click(function () {
   var title = $(this).prev().val();
-  authData = fb.getAuth()
-  movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
-  $.post(movie_database, JSON.stringify(searchInfo),
+  authData = fb.getAuth();
+  var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
+  console.log(movie_database, "authData")
+  $.post(movie_database, JSON.stringify(searchData),
            function (res) {
-    addMovieDetail(searchInfo, res.Title);
+    addMovieDetail(searchData, res.Title);
   }, 'json');
 });
 // JSONP_CALLBACK
 function addMovieDetail(data, id) {
-  var movieObj = data[0];
-  var detail = popMovieDetails(movieObj, id);
+  var detail = popMovieDetails(data, id);
   var $target = $('.movie-list');
   // $target.empty();
   $target.append(detail);
