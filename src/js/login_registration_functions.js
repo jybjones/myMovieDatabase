@@ -38,6 +38,7 @@ $('.doResetPassword').click(function () {
 
 $('.doLogout').click(function () {
   fb.unauth();
+  document.location.reload(true);
 })
 
 $('.doRegister').click(function () {
@@ -90,6 +91,7 @@ function doLogin (email, password, cb) {
     } else {
       saveAuthData(authData);
       typeof cb === 'function' && cb(authData);
+      movieFirebase();
     }
   });
 }

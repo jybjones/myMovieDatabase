@@ -10,7 +10,6 @@ var $addMovie = $(".addMovie");
 var searchData;
 
 
-
 /*$(".addMovie").hide();*/
 
 ///////search button & Calling Function///
@@ -64,13 +63,18 @@ td_2.appendChild(text_2);
 }
 
 /////////Begin Firebase////////
-$.get(GETmovie_database, function (movieDetails) {
-  console.log(GETmovie_database)
-  console.log(movieDetails)
+function movieFirebase () {
+  authData = fb.getAuth();
+  var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
+console.log(movie_database)
+$.get(movie_database, function (movieDetails) {
+  console.log(fb.getAuth())
   Object.keys(movieDetails).forEach(function (id) {
     addMovieDetail(movieDetails[id], id);
   });
 });
+}
+
 
 var $movieDetails = $('.Details');
   $movieDetails.on('click', '.btn', function () {
@@ -89,6 +93,9 @@ var $movieDetails = $('.Details');
 });
 
 ////////Add Movie to DataBase/////
+movieFirebase();
+console.log(movieFirebase)
+
 $addMovie.click(function () {
   var title = $(this).prev().val();
   authData = fb.getAuth();
@@ -99,6 +106,7 @@ $addMovie.click(function () {
     addMovieDetail(searchData, res.Title);
   }, 'json');
 });
+
 // JSONP_CALLBACK
 function addMovieDetail(data, id) {
   var detail = popMovieDetails(data, id);
