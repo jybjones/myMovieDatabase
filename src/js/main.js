@@ -71,7 +71,6 @@ $.get(movie_database, function (movieDetails) {
 });
 }
 
-
 var $movieDetails = $('.Details');
   $movieDetails.on('click', '.btn', function () {
   var $movie = $(this).closest('.movie');

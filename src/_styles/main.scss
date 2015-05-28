@@ -2,22 +2,55 @@ body {
   background-color: black;
   color: black;
   text-align: center;
+  font-size: 24px;
 }
 .wrapper{
   margin: 0 auto;
   width: auto;
   background: url(http://betanews.com/wp-content/uploads/2013/01/cat-popcorn-movie-film-hollywood-3d-gkasses-600x399.jpg);
   background-opacity: .8;
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 ::-webkit-input-placeholder{
   color: white;
-   font-size: 12px;
+   font-size: 22px;
   font: bold;
 }
 .input-container {
   text-align: center;
   margin: auto;
+}
+
+form {
+  padding: 6px;
+  border-radius: 6px;
+}
+input {
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 7px 7px 6px black;
+}
+input.doRegister, input.logIn, input.doResetPassword{
+  background-color: #37B2C2;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 6px 6px 5px black;
+  padding: 7px;
+  margin: 6px;
+  font-weight: bold;
+  font-size: large;
+}
+button.doLogout{
+  background-color: #37B2C2;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 6px 6px 5px black;
+  padding: 7px;
+  margin: 6px;
+  width: 24%;
+  font-weight: bold;
+  font-size: large;
 }
 .login{
   margin-top: 175px;
@@ -30,14 +63,20 @@ h1 {
   color: white;
   border-radius: 10px;
 }
+
+
 placeholder {color: white;}
 #movie {
   background-color: red;
-  margin-left: 275px;
-  margin-top: -50px;
-  padding: 7px;
+  padding: 10px;
   border-radius: 12px;
   color: white;
+  box-shadow: 6px 6px 5px black;
+  width: 30%;
+  margin-left: -35px;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 22px;
 }
 .row {
   margin: 0;
@@ -56,19 +95,23 @@ placeholder {color: white;}
   border-radius: 5px;
   box-shadow: 3px 3px 3px black;
 }
-.btn-delete, .search-button {
+.btn-delete {
   background-color: #37B2C2;
   color: white;
   border-radius: 5px;
-  box-shadow: 6px 6px 5px gray;
+  box-shadow: 6px 6px 5px black;
+  font-weight: bold;
 }
 .search-button {
   background-color: #37B2C2;
   color: white;
   border-radius: 10px;
-  box-shadow: 6px 6px 5px gray;
+  box-shadow: 6px 6px 5px black;
   padding: 7px;
-
+  margin: 6px;
+  width: 15%;
+  font-weight: bold;
+  font-size: large;
 }
 .onLoggedOut.hidden{
   margin-top: -300px;
@@ -90,6 +133,8 @@ placeholder {color: white;}
   border-collapse: collapse; border-spacing: 0;
   margin: auto;
   margin-top: 0px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 forms-wrapper {
@@ -101,6 +146,7 @@ forms-wrapper {
   border-collapse: collapse; border-spacing: 0;
   margin: auto;
   margin-top: -19px;
+font-weight: bolder;
 }
 
 .movie-list table th {
@@ -109,17 +155,17 @@ forms-wrapper {
 
 .movie-search{
   width: 100%;
-  /* Table reset stuff */
-  border-collapse: collapse; border-spacing: 0;
-
+  font-weight: bolder;
 }
 
-td, th {  border: 0 none; height: 30px; }
+// td, th {  border: 0 none; height: 30px; }
 
 th {
   /* Gradient Background */
   background: linear-gradient(#FF0000 0%,#925 100%);
-  color: #FFF; font-weight: bold;
+  color: #FFF;
+  font-weight: bolder;
+  font-size: 20px;
   height: 50px;
 
 }

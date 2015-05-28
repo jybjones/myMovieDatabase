@@ -20,7 +20,7 @@ fb.onAuth(function (authData) {
     movieList.removeClass('hidden');
     onLoggedOut.addClass('hidden');
     onTempPassword.addClass('hidden');
-    $('.onLoggedIn h1').text(`Hello ${authData.password.email}`);
+    $('.onLoggedIn h1').text(`Welcome ${authData.password.email} , search a MeowVIE`);
   } else {
     onLoggedOut.removeClass('hidden');
     onLoggedIn.addClass('hidden');
