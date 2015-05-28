@@ -1,4 +1,6 @@
 fb.onAuth(function (authData) {
+/////add initLoad here///
+  if (initLoad) {
   var onLoggedOut = $('.onLoggedOut');
   var onLoggedIn = $('.onLoggedIn');
   var onTempPassword = $('.onTempPassword');
@@ -12,6 +14,7 @@ fb.onAuth(function (authData) {
     movieInfo.removeClass('hidden');
     movieList.removeClass('hidden');
   } else if (authData) {
+    //logged in//
     onLoggedIn.removeClass('hidden');
     movieInfo.removeClass('hidden');
     movieList.removeClass('hidden');
@@ -25,6 +28,7 @@ fb.onAuth(function (authData) {
     movieInfo.addClass('hidden');
     movieList.addClass('hidden');
   }
-
-  clearLoginForm();
+}
+    initLoad = false;
+  // clearLoginForm();
 });

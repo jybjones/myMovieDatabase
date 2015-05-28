@@ -8,9 +8,7 @@ var fb = new Firebase(FIREBASE_URL);
 var $searchButton = $('.search-button');
 var $addMovie = $(".addMovie");
 var searchData;
-
-
-/*$(".addMovie").hide();*/
+var initLoad = true;
 
 ///////search button & Calling Function///
   $searchButton.click(function () {
@@ -24,12 +22,12 @@ var searchData;
 });
 
  //////////returned info from API call above//
- function movieSearchReturn (searchData) {
-   var docFragment = document.createDocumentFragment();
-   var tbody = document.querySelector(".Search-details");
-   var tr = document.createElement('TR');
-   tr.setAttribute("class", "movie");
-   tbody.appendChild(tr);
+function movieSearchReturn (searchData) {
+var docFragment = document.createDocumentFragment();
+var tbody = document.querySelector(".Search-details");
+var tr = document.createElement('TR');
+tr.setAttribute("class", "movie");
+tbody.appendChild(tr);
 
 var td = document.createElement('TD');
 td.setAttribute("class", "Poster");
@@ -66,9 +64,7 @@ td_2.appendChild(text_2);
 function movieFirebase () {
   authData = fb.getAuth();
   var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
-console.log(movie_database)
 $.get(movie_database, function (movieDetails) {
-  console.log(fb.getAuth())
   Object.keys(movieDetails).forEach(function (id) {
     addMovieDetail(movieDetails[id], id);
   });
@@ -94,8 +90,6 @@ var $movieDetails = $('.Details');
 
 ////////Add Movie to DataBase/////
 movieFirebase();
-console.log(movieFirebase)
-
 $addMovie.click(function () {
   var title = $(this).prev().val();
   authData = fb.getAuth();
