@@ -3,12 +3,13 @@ var API_URL = "http://www.omdbapi.com/?t=";
 var API_URL2 = "&y=&plot=short&r=json";
 var FIREBASE_URL ="https://moviedatabase.firebaseio.com/";
 var GETmovie_database = FIREBASE_URL + "movies.json";
-//var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
+// var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
 var fb = new Firebase(FIREBASE_URL);
 var $searchButton = $('.search-button');
 var $addMovie = $(".addMovie");
 var searchData;
 var initLoad = true;
+
 
 ///////search button & Calling Function///
   $searchButton.click(function () {
@@ -75,6 +76,7 @@ var $movieDetails = $('.Details');
   $movieDetails.on('click', '.btn', function () {
   var $movie = $(this).closest('.movie');
   var id = $movie.attr('data-id');
+  var movie_database = FIREBASE_URL + "users/" + authData.uid + "/movies.json";
   var deleteUrl = movie_database.slice(0, -5) + '/' + id + '.json';
 
  $.ajax({
