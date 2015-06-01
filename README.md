@@ -1,2 +1,0 @@
-# myMovieDatabase
-using OMDB API
